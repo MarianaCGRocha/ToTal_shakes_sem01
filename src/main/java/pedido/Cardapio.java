@@ -1,7 +1,10 @@
 package pedido;
 
 import ingredientes.Ingrediente;
+import ingredientes.TipoTopping;
+import ingredientes.Topping;
 
+import java.io.IOException;
 import java.util.TreeMap;
 
 public class Cardapio {
@@ -17,7 +20,7 @@ public class Cardapio {
 
     public void adicionarIngrediente(Ingrediente ingrediente,Double preco){
         //TODO
-        this.precos.put(ingrediente,preco);
+                this.precos.put(ingrediente, preco);
     }
 
     public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
@@ -28,8 +31,13 @@ public class Cardapio {
 
     public boolean removerIngrediente(Ingrediente ingrediente){
        //TODO
-        this.precos.remove(ingrediente);
-        return true;
+
+        if (this.precos.containsKey(ingrediente)) {
+            this.precos.remove(ingrediente);
+            return true;
+        } else {
+            throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
+        }
     }
 
     public Double buscarPreco(Ingrediente ingrediente){
