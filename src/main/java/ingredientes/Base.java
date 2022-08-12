@@ -1,5 +1,7 @@
 package ingredientes;
 
+import java.util.Comparator;
+
 public class Base implements Ingrediente,Comparable<Ingrediente>{
 
     private TipoBase tipoBase;

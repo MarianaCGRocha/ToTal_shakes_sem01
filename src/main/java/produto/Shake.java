@@ -4,6 +4,7 @@ import ingredientes.*;
 
 import javax.naming.Context;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Shake {
@@ -19,6 +20,7 @@ public class Shake {
         this.topping = topping;
         this.adicionais = adicionais;
         this.tipoTamanho = tipoTamanho;
+        this.adicionais.sort(Comparator.comparing(adicional -> adicional.toString()));
     }
 
     public Shake(Base base, Fruta fruta, Topping topping, TipoTamanho tipoTamanho) {

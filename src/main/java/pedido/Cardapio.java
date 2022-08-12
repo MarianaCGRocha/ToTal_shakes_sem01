@@ -9,17 +9,17 @@ import java.util.Collections;
 import java.util.TreeMap;
 
 public class Cardapio {
-    private TreeMap<Ingrediente,Double> precos;
+    private TreeMap<Ingrediente, Double> precos;
 
-    public Cardapio(){
-        this.precos= new TreeMap<>(Collections.reverseOrder());
+    public Cardapio() {
+        this.precos = new TreeMap<>(Collections.reverseOrder());
     }
 
-    public TreeMap<Ingrediente, Double> getPrecos(){
+    public TreeMap<Ingrediente, Double> getPrecos() {
         return this.precos;
     }
 
-    public void adicionarIngrediente(Ingrediente ingrediente,Double preco){
+    public void adicionarIngrediente(Ingrediente ingrediente, Double preco) {
         //TODO
         if (preco > 0.0) {
             this.precos.put(ingrediente, preco);
@@ -28,9 +28,9 @@ public class Cardapio {
         }
     }
 
-    public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
-       //TODO
-        if (preco > 0.0){
+    public boolean atualizarIngrediente(Ingrediente ingrediente, Double preco) {
+        //TODO
+        if (preco > 0.0) {
             if (this.precos.containsKey(ingrediente)) {
                 this.precos.replace(ingrediente, preco);
                 return true;
@@ -42,8 +42,8 @@ public class Cardapio {
         }
     }
 
-    public boolean removerIngrediente(Ingrediente ingrediente){
-       //TODO
+    public boolean removerIngrediente(Ingrediente ingrediente) {
+        //TODO
         if (this.precos.containsKey(ingrediente)) {
             this.precos.remove(ingrediente);
             return true;
@@ -52,9 +52,9 @@ public class Cardapio {
         }
     }
 
-    public Double buscarPreco(Ingrediente ingrediente){
+    public Double buscarPreco(Ingrediente ingrediente) {
         //TODO
-        if(this.precos.containsKey(ingrediente)) {
+        if (this.precos.containsKey(ingrediente)) {
             return this.precos.get(ingrediente);
         } else {
             throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
