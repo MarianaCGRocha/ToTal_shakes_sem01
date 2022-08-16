@@ -30,39 +30,54 @@ public class Pedido{
         return this.cliente;
     }
 
-    public double calcularTotal(Cardapio cardapio){
+    public double calcularTotal(Cardapio cardapio) {
         double total= 0;
         //TODO
-        for(ItemPedido item : itens){
+        for(ItemPedido item : itens) {
+            double valorShake = 0;
             Shake shake = item.getShake();
-            TipoTamanho tipoTamanho = shake.getTipoTamanho();
-            total += cardapio.buscarPreco(shake.getBase());
-            total += cardapio.buscarPreco(shake.getFruta());
-            total += cardapio.buscarPreco(shake.getTopping());
+            // TipoTamanho tipoTamanho = shake.getTipoTamanho();
+            valorShake += (cardapio.buscarPreco((shake.getBase())) * (shake.getTipoTamanho().getMultiplicador()));
+            // total += cardapio.buscarPreco(shake.getFruta());
+            // total += cardapio.buscarPreco(shake.getTopping());
             if(shake.getAdicionais()!= null) {
                 for (Adicional adicional : shake.getAdicionais()) {
-                    total += cardapio.buscarPreco(adicional);
+                    valorShake += cardapio.buscarPreco(adicional);
                 }
             }
-            total *= tipoTamanho.getMultiplicador();
-            total *= item.getQuantidade();
+            // total *= tipoTamanho.getMultiplicador();
+            valorShake *= item.getQuantidade();
+            total += valorShake;
         }
         return total;
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
         //TODO
-        this.itens.add(itemPedidoAdicionado);
+        boolean duplicatedItem = false;
+        for (ItemPedido item : itens ) {
+            if (item.getShake().equals(itemPedidoAdicionado.getShake())) {
+                item.setQuantidade(item.getQuantidade() + itemPedidoAdicionado.getQuantidade());
+                duplicatedItem = true;
+            }
+        }
+        if(!duplicatedItem) {
+            itens.add(itemPedidoAdicionado);
+        }
     }
 
     public void removeItemPedido(ItemPedido itemPedidoRemovido){
         //substitua o true por uma condição
-        if (itens.contains(itemPedidoRemovido)) {
-            itens.remove(itemPedidoRemovido);
-            //TODO
-        } else {
-            throw new IllegalArgumentException("Item nao existe no pedido.");
-        }
+        if(itens.stream().anyMatch(item -> item.getShake().toString().equals(itemPedidoRemovido.getShake().toString()))) {
+            for (ItemPedido item : itens ) {
+               if (item.getShake().toString().equals(itemPedidoRemovido.getShake().toString()) && item.getQuantidade() > 0) {
+                   item.setQuantidade(item.getQuantidade() - 1);
+               }
+            }
+
+            itens.removeIf(item -> item.getQuantidade() <= 0);
+
+        } else throw new IllegalArgumentException("Item nao existe no pedido.");
     }
 
     @Override
