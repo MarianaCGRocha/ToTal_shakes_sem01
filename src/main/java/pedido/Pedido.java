@@ -59,6 +59,7 @@ public class Pedido{
             if (item.getShake().equals(itemPedidoAdicionado.getShake())) {
                 item.setQuantidade(item.getQuantidade() + itemPedidoAdicionado.getQuantidade());
                 duplicatedItem = true;
+                break;
             }
         }
         if(!duplicatedItem) {
@@ -74,9 +75,7 @@ public class Pedido{
                    item.setQuantidade(item.getQuantidade() - 1);
                }
             }
-
             itens.removeIf(item -> item.getQuantidade() <= 0);
-
         } else throw new IllegalArgumentException("Item nao existe no pedido.");
     }
 
