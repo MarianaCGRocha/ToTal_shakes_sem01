@@ -5,7 +5,7 @@ import ingredientes.Ingrediente;
 import java.util.TreeMap;
 
 public class Armazem {
-    private TreeMap<Ingrediente, Integer> estoque;
+    public TreeMap<Ingrediente, Integer> estoque;
 
     public Armazem(){ this.estoque = new TreeMap<>(); }
 
