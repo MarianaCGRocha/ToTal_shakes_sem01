@@ -3,8 +3,9 @@ package produto;
 import ingredientes.*;
 
 import javax.naming.Context;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Shake {
     private Base base;
@@ -13,11 +14,12 @@ public class Shake {
     private List<Adicional> adicionais;
     private TipoTamanho  tipoTamanho;
 
-    public Shake(Base base, Fruta fruta, Topping topping, ArrayList<Adicional> adicionais, TipoTamanho tipoTamanho) {
+    public Shake(Base base, Fruta fruta, Topping topping, ArrayList<Adicional> adicionais,
+                 TipoTamanho tipoTamanho) {
         this.base = base;
         this.fruta = fruta;
         this.topping = topping;
-        this.adicionais = adicionais;
+        this.adicionais = adicionais.stream().sorted().collect(Collectors.toList());
         this.tipoTamanho = tipoTamanho;
     }
 
@@ -26,6 +28,7 @@ public class Shake {
         this.fruta = fruta;
         this.topping = topping;
         this.tipoTamanho = tipoTamanho;
+        this.adicionais = new ArrayList<>();
     }
 
     public Base getBase() {
